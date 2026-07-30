@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NGSL · Level 1 核心词汇复习 (400词)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f7fc;
+      color: #1e293b;
+      padding: 24px 16px;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: white;
+      padding: 16px 24px;
+      border-radius: 28px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+      margin-bottom: 28px;
+    }
+    .logo { font-weight: 600; font-size: 1.3rem; letter-spacing: -0.3px; color: #0f3b5e; }
+    .logo span { color: #3b82f6; }
+    .course-selector { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .course-selector label { font-weight: 500; font-size: 0.9rem; color: #475569; }
+    #lessonSelect {
+      padding: 8px 14px;
+      border-radius: 40px;
+      border: 1px solid #d1d9e6;
+      background: white;
+      font-weight: 500;
+      font-size: 0.9rem;
+      min-width: 120px;
+      cursor: pointer;
+    }
+    .action-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      background: white;
+      border: 1px solid #d1d9e6;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #1e293b;
+      cursor: pointer;
+      transition: 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn:hover { background: #f1f5f9; border-color: #94a3b8; }
+    .btn-primary { background: #1e293b; border-color: #1e293b; color: white; }
+    .btn-primary:hover { background: #0f172a; }
+    .btn-outline-blue { border-color: #b9d0f0; color: #1e4a7a; }
+    .btn-outline-blue:hover { background: #e6eff9; }
+    .btn-danger { color: #b91c1c; border-color: #fecaca; }
+    .btn-danger:hover { background: #fee2e2; }
+
+    .progress-badge {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      background: white;
+      padding: 12px 24px;
+      border-radius: 60px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      font-size: 0.85rem;
+      margin-bottom: 24px;
+      align-items: center;
+    }
+    .badge-item { display: flex; align-items: center; gap: 6px; }
+    .dot { width: 10px; height: 10px; border-radius: 20px; display: inline-block; }
+    .dot.review { background: #94a3b8; }
+    .dot.learning { background: #f59e0b; }
+    .dot.mastered { background: #22c55e; }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 780px) { .card-grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 20px 20px 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.02);
+      border: 1px solid #eef2f6;
+    }
+    .card-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed #e2e8f0;
+      padding-bottom: 10px;
+    }
+    .card-title small { font-weight: 400; font-size: 0.75rem; color: #64748b; }
+
+    .vocab-card {
+      background: #fafcff;
+      border-radius: 20px;
+      padding: 18px;
+      border: 1px solid #e9edf2;
+    }
+    .word-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; }
+    .word-en { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.3px; }
+    .word-ipa { font-size: 1rem; color: #475569; font-weight: 400; margin-left: 8px; }
+    .word-pos { color: #dc2626; font-weight: 600; margin-left: 8px; font-size: 0.95rem; }
+    .word-meaning { font-size: 1.1rem; margin-top: 6px; color: #0f172a; }
+    .word-example {
+      background: #f1f5f9;
+      padding: 10px 14px;
+      border-radius: 16px;
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #1e293b;
+      border-left: 4px solid #3b82f6;
+    }
+    .word-example-cn { color: #475569; font-size: 0.85rem; margin-top: 4px; }
+    .audio-row { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+    .audio-btn {
+      background: #f1f4f9;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+    .audio-btn:hover { background: #e2e8f0; }
+
+    .quiz-area { margin-top: 10px; }
+    .quiz-option {
+      display: block;
+      background: #f8fafc;
+      padding: 12px 16px;
+      border-radius: 16px;
+      margin-bottom: 8px;
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      transition: 0.1s;
+      font-weight: 500;
+    }
+    .quiz-option:hover { background: #f1f5f9; border-color: #b9d0f0; }
+    .quiz-option.correct { background: #dcfce7; border-color: #22c55e; }
+    .quiz-option.wrong { background: #fee2e2; border-color: #ef4444; }
+    .quiz-input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 60px;
+      border: 1px solid #d1d9e6;
+      font-size: 1rem;
+      margin: 12px 0 8px;
+      outline: none;
+    }
+    .quiz-input:focus { outline: 2px solid #3b82f6; border-color: transparent; }
+    .helper-text { font-size: 0.8rem; color: #64748b; margin: 6px 0 12px; }
+    .quiz-feedback { font-weight: 500; margin: 6px 0; }
+
+    .wordlist-section {
+      background: white;
+      border-radius: 28px;
+      padding: 20px 24px;
+      border: 1px solid #eef2f6;
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+    .wordlist-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+    .wordlist-table th { text-align: left; padding: 8px 6px; background: #f1f5f9; border-radius: 12px; }
+    .wordlist-table td { padding: 8px 6px; border-bottom: 1px solid #eef2f6; }
+    .wordlist-table .status-badge {
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+    .status-review { background: #e2e8f0; color: #475569; }
+    .status-learning { background: #fef3c7; color: #b45309; }
+    .status-mastered { background: #dcfce7; color: #15803d; }
+
+    .lock-info {
+      background: #f1f5f9;
+      padding: 12px 18px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      color: #475569;
+      margin: 12px 0 4px;
+      text-align: center;
+    }
+    .footer-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  </style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="header">
+    <div class="logo">📘 <span>NGSL</span> · Level 1 (400词)</div>
+    <div class="course-selector">
+      <span style="font-size:0.8rem;color:#64748b;margin-left:4px;" id="wordCountDisplay"></span>
+    </div>
+    <div class="action-group">
+      <button class="btn btn-outline-blue" id="shuffleBtn">🔀 打乱</button>
+      <button class="btn btn-danger" id="resetLessonBtn">↺ 重置当前</button>
+      <button class="btn btn-danger" id="resetAllBtn">⟲ 重置全部</button>
+    </div>
+  </div>
+
+  <div class="progress-badge">
+    <span class="badge-item"><span class="dot review"></span> 待复习 <strong id="reviewCount">0</strong></span>
+    <span class="badge-item"><span class="dot learning"></span> 学习中 <strong id="learningCount">0</strong></span>
+    <span class="badge-item"><span class="dot mastered"></span> 已掌握 <strong id="masteredCount">0</strong></span>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">📖 单词卡 <small id="cardIndex">1 / 0</small></div>
+      <div id="vocabCardContainer">
+        <div class="vocab-card" id="vocabCard">
+          <div class="word-header">
+            <span>
+              <span class="word-en" id="cardWord">—</span>
+              <span class="word-ipa" id="cardIpa">/—/</span>
+              <span class="word-pos" id="cardPos">—</span>
+            </span>
+          </div>
+          <div class="word-meaning" id="cardMeaning">—</div>
+          <div class="word-example" id="cardExample">📌 例句加载中</div>
+          <div class="word-example-cn" id="cardExampleCn"></div>
+          <div class="audio-row">
+            <button class="audio-btn" id="playWordAudio">🔊 生词</button>
+            <button class="audio-btn" id="playExampleAudio">🔊 例句</button>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; margin-top:16px;">
+        <button class="btn" id="prevCardBtn">◀ 上一张</button>
+        <button class="btn" id="nextCardBtn">下一张 ▶</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">✏️ 练习 <small id="partLabel">第二部分 · 选中文</small></div>
+      <div id="quizContainer">
+        <div id="quizContent">
+          <div style="text-align:center;color:#64748b;padding:20px 0;">加载词库…</div>
+        </div>
+      </div>
+      <div class="lock-info" id="lockInfo">🔒 完成当前部分所有题目后解锁下一部分</div>
+      <div class="footer-actions">
+        <button class="btn" id="resetQuizBtn">↻ 重练当前</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wordlist-section">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+      <span style="font-weight:600;">📋 当前词表</span>
+      <span style="font-size:0.75rem; color:#64748b;" id="wordlistMeta">NGSL Level 1</span>
+    </div>
+    <table class="wordlist-table" id="wordlistTable">
+      <thead><tr><th>Rank</th><th>生词</th><th>音标</th><th>词性</th><th>释义</th><th>进度</th></tr></thead>
+      <tbody id="wordlistBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  // ================================================================
+  // NGSL Level 1 词库 (按rank从低到高录入, 1~400)
+  // 数据来源：https://www.linguaeruditio.com/Glossary/NGSL/NGSL_L1.html
+  // 全部例句及翻译由AI自动生成
+  // ================================================================
+  const RAW_WORDS = [
+    { rank:1, word:'the', ipa:'/ði/', pos:'det', meaning:'用于指代已提及的事物', example:'The book is on the table.', exampleCn:'书在桌子上。' },
+    { rank:2, word:'be', ipa:'/bi/', pos:'verb', meaning:'存在；用于提供信息', example:'I want to be a teacher.', exampleCn:'我想成为一名老师。' },
+    { rank:3, word:'and', ipa:'/ænd/', pos:'conj', meaning:'和，与', example:'I like apples and oranges.', exampleCn:'我喜欢苹果和橙子。' },
+    { rank:4, word:'of', ipa:'/ɑv/', pos:'prep', meaning:'属于…的', example:'The color of the sky is blue.', exampleCn:'天空的颜色是蓝色的。' },
+    { rank:5, word:'to', ipa:'/tu/', pos:'prep', meaning:'朝，向', example:'I go to school every day.', exampleCn:'我每天去学校。' },
+    { rank:6, word:'a', ipa:'/ə/', pos:'det', meaning:'一个', example:'I have a cat.', exampleCn:'我有一只猫。' },
+    { rank:7, word:'in', ipa:'/ɪn/', pos:'prep', meaning:'在…里', example:'The pen is in the drawer.', exampleCn:'钢笔在抽屉里。' },
+    { rank:8, word:'have', ipa:'/hæv/', pos:'aux', meaning:'拥有', example:'I have a new phone.', exampleCn:'我有一部新手机。' },
+    { rank:9, word:'it', ipa:'/ɪt/', pos:'pron', meaning:'它', example:'I like it very much.', exampleCn:'我非常喜欢它。' },
+    { rank:10, word:'you', ipa:'/ju/', pos:'pron', meaning:'你，你们', example:'You are my friend.', exampleCn:'你是我的朋友。' },
+    { rank:11, word:'he', ipa:'/hi/', pos:'pron', meaning:'他', example:'He is a doctor.', exampleCn:'他是一名医生。' },
+    { rank:12, word:'for', ipa:'/fɔr/', pos:'prep', meaning:'为了', example:'This gift is for you.', exampleCn:'这份礼物是给你的。' },
+    { rank:13, word:'they', ipa:'/ðeɪ/', pos:'pron', meaning:'他们', example:'They are playing football.', exampleCn:'他们正在踢足球。' },
+    { rank:14, word:'not', ipa:'/nɒt/', pos:'adv', meaning:'不', example:'I am not tired.', exampleCn:'我不累。' },
+    { rank:15, word:'that', ipa:'/ðæt/', pos:'pron', meaning:'那个', example:'That is a big house.', exampleCn:'那是一栋大房子。' },
+    { rank:16, word:'we', ipa:'/wi/', pos:'pron', meaning:'我们', example:'We are going to the park.', exampleCn:'我们要去公园。' },
+    { rank:17, word:'on', ipa:'/ɑn/', pos:'prep', meaning:'在…上', example:'The picture is on the wall.', exampleCn:'画在墙上。' },
+    { rank:18, word:'with', ipa:'/wɪð/', pos:'prep', meaning:'和…一起', example:'I live with my family.', exampleCn:'我和家人住在一起。' },
+    { rank:19, word:'this', ipa:'/ðɪs/', pos:'pron', meaning:'这个', example:'This is my favorite book.', exampleCn:'这是我最喜欢的书。' },
+    { rank:20, word:'I', ipa:'/aɪ/', pos:'pron', meaning:'我', example:'I like to read.', exampleCn:'我喜欢阅读。' },
+    { rank:21, word:'do', ipa:'/du/', pos:'verb', meaning:'做', example:'I do my homework every day.', exampleCn:'我每天做作业。' },
+    { rank:22, word:'as', ipa:'/æz/', pos:'prep', meaning:'作为，如同', example:'She works as a nurse.', exampleCn:'她作为一名护士工作。' },
+    { rank:23, word:'at', ipa:'/æt/', pos:'prep', meaning:'在', example:'I am at home.', exampleCn:'我在家。' },
+    { rank:24, word:'she', ipa:'/ʃi/', pos:'pron', meaning:'她', example:'She is very kind.', exampleCn:'她很善良。' },
+    { rank:25, word:'but', ipa:'/bʌt/', pos:'conj', meaning:'但是', example:'I am tired, but I will continue.', exampleCn:'我累了，但我会继续。' },
+    { rank:26, word:'from', ipa:'/frɑm/', pos:'prep', meaning:'从', example:'I come from China.', exampleCn:'我来自中国。' },
+    { rank:27, word:'by', ipa:'/baɪ/', pos:'prep', meaning:'在…旁，通过', example:'The book is by the window.', exampleCn:'书在窗户旁边。' },
+    { rank:28, word:'will', ipa:'/wɪl/', pos:'aux', meaning:'将要', example:'I will go to the store.', exampleCn:'我将去商店。' },
+    { rank:29, word:'or', ipa:'/ɔr/', pos:'conj', meaning:'或者', example:'You can choose tea or coffee.', exampleCn:'你可以选择茶或咖啡。' },
+    { rank:30, word:'say', ipa:'/seɪ/', pos:'verb', meaning:'说', example:'Please say your name.', exampleCn:'请说出你的名字。' },
+    { rank:31, word:'go', ipa:'/goʊ/', pos:'verb', meaning:'去', example:'Let\'s go home.', exampleCn:'我们回家吧。' },
+    { rank:32, word:'so', ipa:'/soʊ/', pos:'conj', meaning:'所以', example:'It was late, so I left.', exampleCn:'很晚了，所以我离开了。' },
+    { rank:33, word:'all', ipa:'/ɔl/', pos:'adv', meaning:'全部', example:'I ate all the cookies.', exampleCn:'我吃了所有的饼干。' },
+    { rank:34, word:'if', ipa:'/ɪf/', pos:'conj', meaning:'如果', example:'If it rains, I will stay home.', exampleCn:'如果下雨，我就待在家里。' },
+    { rank:35, word:'one', ipa:'/wʌn/', pos:'num', meaning:'一', example:'I have one brother.', exampleCn:'我有一个兄弟。' },
+    { rank:36, word:'would', ipa:'/wʊd/', pos:'aux', meaning:'会', example:'I would like some water.', exampleCn:'我想要些水。' },
+    { rank:37, word:'about', ipa:'/əˈbaʊt/', pos:'prep', meaning:'关于', example:'Tell me about your trip.', exampleCn:'告诉我关于你的旅行。' },
+    { rank:38, word:'can', ipa:'/kæn/', pos:'aux', meaning:'能', example:'I can swim well.', exampleCn:'我游泳游得很好。' },
+    { rank:39, word:'which', ipa:'/wɪtʃ/', pos:'adj', meaning:'哪个', example:'Which color do you like?', exampleCn:'你喜欢哪个颜色？' },
+    { rank:40, word:'there', ipa:'/ðɛər/', pos:'adv', meaning:'在那里', example:'There is a cat on the roof.', exampleCn:'屋顶上有一只猫。' },
+    { rank:41, word:'know', ipa:'/noʊ/', pos:'verb', meaning:'知道', example:'I know the answer.', exampleCn:'我知道答案。' },
+    { rank:42, word:'more', ipa:'/mɔr/', pos:'adj', meaning:'更多', example:'I need more time.', exampleCn:'我需要更多时间。' },
+    { rank:43, word:'get', ipa:'/gɛt/', pos:'verb', meaning:'得到', example:'I get a new book.', exampleCn:'我得到一本新书。' },
+    { rank:44, word:'who', ipa:'/hu/', pos:'pron', meaning:'谁', example:'Who is that man?', exampleCn:'那个男人是谁？' },
+    { rank:45, word:'like', ipa:'/laɪk/', pos:'verb', meaning:'喜欢', example:'I like ice cream.', exampleCn:'我喜欢冰淇淋。' },
+    { rank:46, word:'when', ipa:'/wɛn/', pos:'noun', meaning:'什么时候', example:'When is your birthday?', exampleCn:'你的生日是什么时候？' },
+    { rank:47, word:'think', ipa:'/θɪŋk/', pos:'verb', meaning:'想', example:'I think it\'s a good idea.', exampleCn:'我认为这是个好主意。' },
+    { rank:48, word:'make', ipa:'/meɪk/', pos:'verb', meaning:'制造', example:'I make a cake.', exampleCn:'我做了一个蛋糕。' },
+    { rank:49, word:'time', ipa:'/taɪm/', pos:'noun', meaning:'时间', example:'I have no time.', exampleCn:'我没有时间。' },
+    { rank:50, word:'see', ipa:'/si/', pos:'verb', meaning:'看见', example:'I see a bird in the sky.', exampleCn:'我看见天空中有一只鸟。' },
+    { rank:51, word:'what', ipa:'/wʌt/', pos:'adv', meaning:'什么', example:'What is this?', exampleCn:'这是什么？' },
+    { rank:52, word:'up', ipa:'/ʌp/', pos:'prep', meaning:'向上', example:'Stand up, please.', exampleCn:'请站起来。' },
+    { rank:53, word:'some', ipa:'/sʌm/', pos:'adj', meaning:'一些', example:'I have some money.', exampleCn:'我有一些钱。' },
+    { rank:54, word:'other', ipa:'/ˈʌð.ər/', pos:'adj', meaning:'其他的', example:'Do you have other books?', exampleCn:'你有其他书吗？' },
+    { rank:55, word:'out', ipa:'/aʊt/', pos:'prep', meaning:'出去', example:'I go out for a walk.', exampleCn:'我出去散步。' },
+    { rank:56, word:'good', ipa:'/gʊd/', pos:'adj', meaning:'好的', example:'This is a good movie.', exampleCn:'这是一部好电影。' },
+    { rank:57, word:'people', ipa:'/ˈpi.pəl/', pos:'noun', meaning:'人们', example:'Many people like music.', exampleCn:'许多人喜欢音乐。' },
+    { rank:58, word:'year', ipa:'/jɪə/', pos:'noun', meaning:'年', example:'This year is 2026.', exampleCn:'今年是2026年。' },
+    { rank:59, word:'take', ipa:'/teɪk/', pos:'verb', meaning:'拿取', example:'Take this book, please.', exampleCn:'请拿这本书。' },
+    { rank:60, word:'no', ipa:'/noʊ/', pos:'adv', meaning:'不', example:'There is no water.', exampleCn:'没有水。' },
+    { rank:61, word:'well', ipa:'/wɛl/', pos:'adj', meaning:'好地', example:'She sings well.', exampleCn:'她唱得很好。' },
+    { rank:62, word:'because', ipa:'/bɪˈkɔz/', pos:'conj', meaning:'因为', example:'I am happy because I am free.', exampleCn:'我快乐因为我有空。' },
+    { rank:63, word:'very', ipa:'/ˈvɛr.i/', pos:'adv', meaning:'非常', example:'It is very hot today.', exampleCn:'今天非常热。' },
+    { rank:64, word:'just', ipa:'/dʒʌst/', pos:'adv', meaning:'刚刚', example:'I just arrived.', exampleCn:'我刚刚到达。' },
+    { rank:65, word:'come', ipa:'/kʌm/', pos:'verb', meaning:'来', example:'Come here, please.', exampleCn:'请过来。' },
+    { rank:66, word:'could', ipa:'/kʊd/', pos:'aux', meaning:'可以', example:'I could help you.', exampleCn:'我可以帮助你。' },
+    { rank:67, word:'work', ipa:'/wɜrk/', pos:'noun', meaning:'工作', example:'I go to work at 8 AM.', exampleCn:'我早上8点去上班。' },
+    { rank:68, word:'use', ipa:'/jus/', pos:'verb', meaning:'使用', example:'Can I use your phone?', exampleCn:'我可以用你的电话吗？' },
+    { rank:69, word:'than', ipa:'/ðæn/', pos:'conj', meaning:'比', example:'She is taller than me.', exampleCn:'她比我高。' },
+    { rank:70, word:'now', ipa:'/naʊ/', pos:'adv', meaning:'现在', example:'I am busy now.', exampleCn:'我现在很忙。' },
+    { rank:71, word:'then', ipa:'/ðɛn/', pos:'adv', meaning:'那时', example:'I was young then.', exampleCn:'那时我很年轻。' },
+    { rank:72, word:'also', ipa:'/ˈɑl.səʊ/', pos:'adv', meaning:'也', example:'I also like coffee.', exampleCn:'我也喜欢咖啡。' },
+    { rank:73, word:'into', ipa:'/ˈɪn.tu/', pos:'prep', meaning:'进入', example:'I walk into the room.', exampleCn:'我走进房间。' },
+    { rank:74, word:'only', ipa:'/ˈoʊn.li/', pos:'adv', meaning:'仅仅', example:'I have only one dollar.', exampleCn:'我只有一美元。' },
+    { rank:75, word:'look', ipa:'/lʊk/', pos:'verb', meaning:'看', example:'Look at the sky.', exampleCn:'看天空。' },
+    { rank:76, word:'want', ipa:'/wɑnt/', pos:'verb', meaning:'想要', example:'I want to eat.', exampleCn:'我想吃东西。' },
+    { rank:77, word:'give', ipa:'/gɪv/', pos:'verb', meaning:'给', example:'Give me the book.', exampleCn:'给我那本书。' },
+    { rank:78, word:'first', ipa:'/fɜrst/', pos:'adj', meaning:'第一', example:'This is my first time.', exampleCn:'这是我的第一次。' },
+    { rank:79, word:'new', ipa:'/nu/', pos:'adj', meaning:'新的', example:'I have a new car.', exampleCn:'我有一辆新车。' },
+    { rank:80, word:'way', ipa:'/weɪ/', pos:'noun', meaning:'方式', example:'This is the way to the station.', exampleCn:'这是去车站的路。' },
+    { rank:81, word:'find', ipa:'/faɪnd/', pos:'verb', meaning:'找到', example:'I find my book.', exampleCn:'我找到了我的书。' },
+    { rank:82, word:'over', ipa:'/ˈoʊ.vər/', pos:'prep', meaning:'在…上方', example:'The plane flew over the city.', exampleCn:'飞机飞过城市上空。' },
+    { rank:83, word:'any', ipa:'/ˈɛn.i/', pos:'adj', meaning:'任何', example:'Do you have any questions?', exampleCn:'你有任何问题吗？' },
+    { rank:84, word:'after', ipa:'/ˈæf.tər/', pos:'adv', meaning:'之后', example:'I will call you after lunch.', exampleCn:'午饭后我会给你打电话。' },
+    { rank:85, word:'day', ipa:'/deɪ/', pos:'noun', meaning:'天', example:'I work every day.', exampleCn:'我每天工作。' },
+    { rank:86, word:'where', ipa:'/wɛər/', pos:'noun', meaning:'哪里', example:'Where is my phone?', exampleCn:'我的手机在哪里？' },
+    { rank:87, word:'thing', ipa:'/θɪŋ/', pos:'noun', meaning:'东西', example:'This is a useful thing.', exampleCn:'这是一个有用的东西。' },
+    { rank:88, word:'most', ipa:'/moʊst/', pos:'pron', meaning:'大多数', example:'Most people like pizza.', exampleCn:'大多数人喜欢披萨。' },
+    { rank:89, word:'should', ipa:'/ʃʊd/', pos:'aux', meaning:'应该', example:'You should see a doctor.', exampleCn:'你应该去看医生。' },
+    { rank:90, word:'need', ipa:'/nid/', pos:'verb', meaning:'需要', example:'I need some water.', exampleCn:'我需要一些水。' },
+    { rank:91, word:'much', ipa:'/mʌtʃ/', pos:'pron', meaning:'很多', example:'How much is this?', exampleCn:'这个多少钱？' },
+    { rank:92, word:'right', ipa:'/raɪt/', pos:'adj', meaning:'正确的', example:'You are right.', exampleCn:'你是对的。' },
+    { rank:93, word:'how', ipa:'/haʊ/', pos:'adv', meaning:'怎样', example:'How are you?', exampleCn:'你好吗？' },
+    { rank:94, word:'back', ipa:'/bæk/', pos:'noun', meaning:'后面', example:'I will be back soon.', exampleCn:'我很快回来。' },
+    { rank:95, word:'mean', ipa:'/min/', pos:'verb', meaning:'意味着', example:'What does this mean?', exampleCn:'这是什么意思？' },
+    { rank:96, word:'even', ipa:'/ˈi.vən/', pos:'adv', meaning:'甚至', example:'She can even sing.', exampleCn:'她甚至会唱歌。' },
+    { rank:97, word:'may', ipa:'/meɪ/', pos:'aux', meaning:'可能', example:'It may rain today.', exampleCn:'今天可能下雨。' },
+    { rank:98, word:'here', ipa:'/hɪər/', pos:'adv', meaning:'在这里', example:'I am here.', exampleCn:'我在这里。' },
+    { rank:99, word:'many', ipa:'/ˈmɛn.i/', pos:'adj', meaning:'许多', example:'I have many books.', exampleCn:'我有许多书。' },
+    { rank:100, word:'such', ipa:'/sʌtʃ/', pos:'adj', meaning:'如此', example:'I have never seen such a thing.', exampleCn:'我从未见过如此的东西。' },
+    { rank:101, word:'last', ipa:'/læst/', pos:'noun', meaning:'上一个', example:'Last week was busy.', exampleCn:'上周很忙。' },
+    { rank:102, word:'child', ipa:'/tʃaɪld/', pos:'noun', meaning:'孩子', example:'The child is playing.', exampleCn:'孩子在玩耍。' },
+    { rank:103, word:'tell', ipa:'/tɛl/', pos:'verb', meaning:'告诉', example:'Tell me the truth.', exampleCn:'告诉我实情。' },
+    { rank:104, word:'really', ipa:'/ˈrɪə.li/', pos:'adv', meaning:'真正地', example:'I really like it.', exampleCn:'我真的很喜欢它。' },
+    { rank:105, word:'call', ipa:'/kɔl/', pos:'verb', meaning:'打电话', example:'I will call you later.', exampleCn:'我稍后给你打电话。' },
+    { rank:106, word:'before', ipa:'/bɪˈfɔr/', pos:'adv', meaning:'之前', example:'I have seen this before.', exampleCn:'我之前见过这个。' },
+    { rank:107, word:'company', ipa:'/ˈkʌm.pə.ni/', pos:'noun', meaning:'公司', example:'He works for a big company.', exampleCn:'他为一家大公司工作。' },
+    { rank:108, word:'through', ipa:'/θru/', pos:'adj', meaning:'穿过', example:'I walk through the park.', exampleCn:'我穿过公园。' },
+    { rank:109, word:'down', ipa:'/daʊn/', pos:'prep', meaning:'向下', example:'Go down the stairs.', exampleCn:'下楼。' },
+    { rank:110, word:'show', ipa:'/ʃoʊ/', pos:'verb', meaning:'展示', example:'Show me your picture.', exampleCn:'给我看看你的画。' },
+    { rank:111, word:'life', ipa:'/laɪf/', pos:'noun', meaning:'生命', example:'Life is beautiful.', exampleCn:'生命是美好的。' },
+    { rank:112, word:'man', ipa:'/mæn/', pos:'noun', meaning:'男人', example:'The man is tall.', exampleCn:'那个男人很高。' },
+    { rank:113, word:'change', ipa:'/tʃeɪndʒ/', pos:'verb', meaning:'改变', example:'I need to change my plan.', exampleCn:'我需要改变我的计划。' },
+    { rank:114, word:'place', ipa:'/pleɪs/', pos:'verb', meaning:'放置', example:'Place the book on the table.', exampleCn:'把书放在桌子上。' },
+    { rank:115, word:'long', ipa:'/lɔŋ/', pos:'adj', meaning:'长的', example:'The river is very long.', exampleCn:'这条河很长。' },
+    { rank:116, word:'between', ipa:'/bɪˈtwin/', pos:'prep', meaning:'在…之间', example:'The shop is between the bank and the hotel.', exampleCn:'商店在银行和酒店之间。' },
+    { rank:117, word:'feel', ipa:'/fil/', pos:'verb', meaning:'感觉', example:'I feel happy.', exampleCn:'我感觉快乐。' },
+    { rank:118, word:'too', ipa:'/tu/', pos:'adv', meaning:'太', example:'It is too late.', exampleCn:'太晚了。' },
+    { rank:119, word:'still', ipa:'/stɪl/', pos:'adv', meaning:'仍然', example:'She is still waiting.', exampleCn:'她仍然在等待。' },
+    { rank:120, word:'problem', ipa:'/ˈprɑb.ləm/', pos:'noun', meaning:'问题', example:'We have a big problem.', exampleCn:'我们有一个大问题。' },
+    { rank:121, word:'write', ipa:'/raɪt/', pos:'verb', meaning:'写', example:'Please write your name here.', exampleCn:'请在这里写上你的名字。' },
+    { rank:122, word:'same', ipa:'/seɪm/', pos:'det', meaning:'相同的', example:'We have the same car.', exampleCn:'我们有相同的车。' },
+    { rank:123, word:'lot', ipa:'/lɑt/', pos:'noun', meaning:'大量', example:'I have a lot of friends.', exampleCn:'我有很多朋友。' },
+    { rank:124, word:'great', ipa:'/greɪt/', pos:'adj', meaning:'伟大的', example:'This is a great movie.', exampleCn:'这是一部伟大的电影。' },
+    { rank:125, word:'try', ipa:'/traɪ/', pos:'verb', meaning:'尝试', example:'Try again, please.', exampleCn:'请再试一次。' },
+    { rank:126, word:'leave', ipa:'/liv/', pos:'verb', meaning:'离开', example:'I leave at 5 PM.', exampleCn:'我下午5点离开。' },
+    { rank:127, word:'number', ipa:'/ˈnʌm.bər/', pos:'noun', meaning:'数字', example:'What is your phone number?', exampleCn:'你的电话号码是多少？' },
+    { rank:128, word:'both', ipa:'/boʊθ/', pos:'det', meaning:'两者', example:'Both of them are right.', exampleCn:'他们两个都是对的。' },
+    { rank:129, word:'own', ipa:'/oʊn/', pos:'det', meaning:'自己的', example:'I have my own room.', exampleCn:'我有自己的房间。' },
+    { rank:130, word:'part', ipa:'/pɑrt/', pos:'noun', meaning:'部分', example:'Part of the problem is solved.', exampleCn:'部分问题已经解决。' },
+    { rank:131, word:'point', ipa:'/pɔɪnt/', pos:'verb', meaning:'指向', example:'Point to the right answer.', exampleCn:'指向正确的答案。' },
+    { rank:132, word:'little', ipa:'/ˈlɪt.l/', pos:'adj', meaning:'小的', example:'She has a little dog.', exampleCn:'她有一只小狗。' },
+    { rank:133, word:'help', ipa:'/hɛlp/', pos:'verb', meaning:'帮助', example:'Can you help me?', exampleCn:'你能帮助我吗？' },
+    { rank:134, word:'ask', ipa:'/æsk/', pos:'verb', meaning:'问', example:'Ask the teacher a question.', exampleCn:'问老师一个问题。' },
+    { rank:135, word:'meet', ipa:'/mit/', pos:'verb', meaning:'遇见', example:'I meet my friend at the station.', exampleCn:'我在车站遇见我的朋友。' },
+    { rank:136, word:'start', ipa:'/stɑrt/', pos:'noun', meaning:'开始', example:'The start of the race is at 9 AM.', exampleCn:'比赛在上午9点开始。' },
+    { rank:137, word:'talk', ipa:'/tɔk/', pos:'verb', meaning:'谈话', example:'We talk about our plans.', exampleCn:'我们谈论我们的计划。' },
+    { rank:138, word:'something', ipa:'/ˈsʌmˌθɪŋ/', pos:'pron', meaning:'某物', example:'I have something to tell you.', exampleCn:'我有事要告诉你。' },
+    { rank:139, word:'put', ipa:'/pʊt/', pos:'verb', meaning:'放', example:'Put the keys on the table.', exampleCn:'把钥匙放在桌子上。' },
+    { rank:140, word:'another', ipa:'/əˈnʌð.ər/', pos:'det', meaning:'另一个', example:'I want another cup of tea.', exampleCn:'我想要另一杯茶。' },
+    { rank:141, word:'become', ipa:'/bɪˈkʌm/', pos:'verb', meaning:'成为', example:'She wants to become a doctor.', exampleCn:'她想成为一名医生。' },
+    { rank:142, word:'interest', ipa:'/ˈɪn.tər.ɪst/', pos:'verb', meaning:'使感兴趣', example:'This book interests me very much.', exampleCn:'这本书让我很感兴趣。' },
+    { rank:143, word:'country', ipa:'/ˈkʌn.tri/', pos:'noun', meaning:'国家', example:'China is a big country.', exampleCn:'中国是一个大国。' },
+    { rank:144, word:'old', ipa:'/oʊld/', pos:'adj', meaning:'老的', example:'He is an old man.', exampleCn:'他是一位老人。' },
+    { rank:145, word:'each', ipa:'/itʃ/', pos:'det', meaning:'每个', example:'Each student has a book.', exampleCn:'每个学生都有一本书。' },
+    { rank:146, word:'school', ipa:'/skul/', pos:'noun', meaning:'学校', example:'I go to school by bus.', exampleCn:'我乘公交车去学校。' },
+    { rank:147, word:'late', ipa:'/leɪt/', pos:'adj', meaning:'迟的', example:'I am late for the meeting.', exampleCn:'我开会迟到了。' },
+    { rank:148, word:'high', ipa:'/haɪ/', pos:'adj', meaning:'高的', example:'The mountain is very high.', exampleCn:'这座山很高。' },
+    { rank:149, word:'different', ipa:'/ˈdɪf.ər.ənt/', pos:'adj', meaning:'不同的', example:'I have a different idea.', exampleCn:'我有一个不同的想法。' },
+    { rank:150, word:'off', ipa:'/ɑf/', pos:'adj', meaning:'离开', example:'I am off to work now.', exampleCn:'我现在要去上班了。' },
+    { rank:151, word:'next', ipa:'/nɛkst/', pos:'adj', meaning:'下一个', example:'I will see you next week.', exampleCn:'我下周见你。' },
+    { rank:152, word:'end', ipa:'/ɛnd/', pos:'noun', meaning:'结束', example:'The end of the movie is exciting.', exampleCn:'电影的结尾很激动人心。' },
+    { rank:153, word:'live', ipa:'/lɪv/', pos:'verb', meaning:'生活', example:'I live in New York.', exampleCn:'我住在纽约。' },
+    { rank:154, word:'why', ipa:'/waɪ/', pos:'adv', meaning:'为什么', example:'Why are you late?', exampleCn:'你为什么迟到？' },
+    { rank:155, word:'while', ipa:'/waɪl/', pos:'conj', meaning:'当…时', example:'I read while eating.', exampleCn:'我边吃边读。' },
+    { rank:156, word:'world', ipa:'/wɜrld/', pos:'noun', meaning:'世界', example:'The world is big.', exampleCn:'世界很大。' },
+    { rank:157, word:'week', ipa:'/wik/', pos:'noun', meaning:'周', example:'I work five days a week.', exampleCn:'我一周工作五天。' },
+    { rank:158, word:'play', ipa:'/pleɪ/', pos:'verb', meaning:'玩', example:'The children play in the garden.', exampleCn:'孩子们在花园里玩。' },
+    { rank:159, word:'might', ipa:'/maɪt/', pos:'aux', meaning:'可能', example:'I might go to the party.', exampleCn:'我可能会去参加聚会。' },
+    { rank:160, word:'must', ipa:'/mʌst/', pos:'aux', meaning:'必须', example:'I must go now.', exampleCn:'我必须走了。' },
+    { rank:161, word:'home', ipa:'/hoʊm/', pos:'noun', meaning:'家', example:'I am going home.', exampleCn:'我要回家了。' },
+    { rank:162, word:'never', ipa:'/ˈnɛv.ər/', pos:'adv', meaning:'从不', example:'I never smoke.', exampleCn:'我从不抽烟。' },
+    { rank:163, word:'include', ipa:'/ɪnˈklud/', pos:'verb', meaning:'包括', example:'The price includes tax.', exampleCn:'价格包括税。' },
+    { rank:164, word:'course', ipa:'/kɔrs/', pos:'noun', meaning:'路线', example:'The course of the river is long.', exampleCn:'这条河的路线很长。' },
+    { rank:165, word:'house', ipa:'/haʊs/', pos:'noun', meaning:'房子', example:'I live in a big house.', exampleCn:'我住在一所大房子里。' },
+    { rank:166, word:'report', ipa:'/rɪˈpɔrt/', pos:'noun', meaning:'报告', example:'I read a report about the weather.', exampleCn:'我读了一份关于天气的报告。' },
+    { rank:167, word:'group', ipa:'/grup/', pos:'noun', meaning:'团体', example:'We are in the same group.', exampleCn:'我们在同一个组。' },
+    { rank:168, word:'case', ipa:'/keɪs/', pos:'noun', meaning:'案例', example:'This is a different case.', exampleCn:'这是一个不同的案例。' },
+    { rank:169, word:'woman', ipa:'/ˈwʊm.ən/', pos:'noun', meaning:'女人', example:'The woman is a nurse.', exampleCn:'那个女人是一名护士。' },
+    { rank:170, word:'around', ipa:'/əˈraʊnd/', pos:'adv', meaning:'周围', example:'I look around the room.', exampleCn:'我看了一下房间四周。' },
+    { rank:171, word:'book', ipa:'/bʊk/', pos:'noun', meaning:'书', example:'I am reading a book.', exampleCn:'我正在读一本书。' },
+    { rank:172, word:'family', ipa:'/ˈfæm.ə.li/', pos:'noun', meaning:'家庭', example:'My family is big.', exampleCn:'我的家庭很大。' },
+    { rank:173, word:'seem', ipa:'/sim/', pos:'verb', meaning:'似乎', example:'It seems like a good idea.', exampleCn:'这似乎是个好主意。' },
+    { rank:174, word:'let', ipa:'/lɛt/', pos:'verb', meaning:'让', example:'Let me help you.', exampleCn:'让我帮助你。' },
+    { rank:175, word:'again', ipa:'/əˈgɛn/', pos:'adv', meaning:'再次', example:'I want to see the movie again.', exampleCn:'我想再看一次这部电影。' },
+    { rank:176, word:'kind', ipa:'/kaɪnd/', pos:'noun', meaning:'种类', example:'What kind of music do you like?', exampleCn:'你喜欢哪种音乐？' },
+    { rank:177, word:'keep', ipa:'/kip/', pos:'verb', meaning:'保持', example:'Keep the change.', exampleCn:'零钱不用找了。' },
+    { rank:178, word:'hear', ipa:'/hɪər/', pos:'verb', meaning:'听见', example:'I can\'t hear you.', exampleCn:'我听不见你。' },
+    { rank:179, word:'system', ipa:'/ˈsɪs.təm/', pos:'noun', meaning:'系统', example:'This is a new system.', exampleCn:'这是一个新系统。' },
+    { rank:180, word:'every', ipa:'/ˈɛv.ri/', pos:'det', meaning:'每个', example:'Every student is here.', exampleCn:'每个学生都在这里。' },
+    { rank:181, word:'question', ipa:'/ˈkwɛs.tʃən/', pos:'verb', meaning:'提问', example:'I question the answer.', exampleCn:'我对答案提出疑问。' },
+    { rank:182, word:'during', ipa:'/ˈdʊər.ɪŋ/', pos:'prep', meaning:'在…期间', example:'I sleep during the day.', exampleCn:'我白天睡觉。' },
+    { rank:183, word:'always', ipa:'/ˈɑl.weɪz/', pos:'adv', meaning:'总是', example:'I always wake up early.', exampleCn:'我总是早起。' },
+    { rank:184, word:'big', ipa:'/bɪg/', pos:'adj', meaning:'大的', example:'This is a big house.', exampleCn:'这是一栋大房子。' },
+    { rank:185, word:'set', ipa:'/sɛt/', pos:'noun', meaning:'一套', example:'I have a set of tools.', exampleCn:'我有一套工具。' },
+    { rank:186, word:'small', ipa:'/smɔl/', pos:'adj', meaning:'小的', example:'I have a small car.', exampleCn:'我有一辆小车。' },
+    { rank:187, word:'study', ipa:'/ˈstʌd.i/', pos:'verb', meaning:'学习', example:'I study every evening.', exampleCn:'我每晚学习。' },
+    { rank:188, word:'follow', ipa:'/ˈfɑl.oʊ/', pos:'verb', meaning:'跟随', example:'Follow me, please.', exampleCn:'请跟我来。' },
+    { rank:189, word:'begin', ipa:'/bɪˈgɪn/', pos:'verb', meaning:'开始', example:'Let\'s begin the class.', exampleCn:'我们开始上课吧。' },
+    { rank:190, word:'important', ipa:'/ɪm.ˈpɔr.tənt/', pos:'adj', meaning:'重要的', example:'This is very important.', exampleCn:'这非常重要。' },
+    { rank:191, word:'since', ipa:'/sɪns/', pos:'prep', meaning:'自从', example:'I have been here since 2019.', exampleCn:'自从2019年我就在这里了。' },
+    { rank:192, word:'run', ipa:'/rʌn/', pos:'verb', meaning:'跑', example:'I run every morning.', exampleCn:'我每天早上跑步。' },
+    { rank:193, word:'under', ipa:'/ˈʌn.dər/', pos:'adj', meaning:'在…下面', example:'The cat is under the table.', exampleCn:'猫在桌子下面。' },
+    { rank:194, word:'turn', ipa:'/tɜrn/', pos:'verb', meaning:'转', example:'Turn left at the corner.', exampleCn:'在拐角处左转。' },
+    { rank:195, word:'few', ipa:'/fju/', pos:'adj', meaning:'少数', example:'I have a few friends.', exampleCn:'我有几个朋友。' },
+    { rank:196, word:'bring', ipa:'/brɪŋ/', pos:'verb', meaning:'带来', example:'Please bring your book.', exampleCn:'请把你的书带来。' },
+    { rank:197, word:'early', ipa:'/ˈɜr.li/', pos:'adj', meaning:'早的', example:'I go to bed early.', exampleCn:'我早早上床睡觉。' },
+    { rank:198, word:'hand', ipa:'/hænd/', pos:'noun', meaning:'手', example:'I hold the pen in my hand.', exampleCn:'我把笔握在手里。' },
+    { rank:199, word:'state', ipa:'/steɪt/', pos:'noun', meaning:'州', example:'She lives in California state.', exampleCn:'她住在加利福尼亚州。' },
+    { rank:200, word:'move', ipa:'/muv/', pos:'verb', meaning:'移动', example:'Please move your chair.', exampleCn:'请移动你的椅子。' },
+    { rank:201, word:'money', ipa:'/ˈmʌn.i/', pos:'noun', meaning:'钱', example:'I need more money.', exampleCn:'我需要更多的钱。' },
+    { rank:202, word:'fact', ipa:'/fækt/', pos:'noun', meaning:'事实', example:'The fact is clear.', exampleCn:'事实很清楚。' },
+    { rank:203, word:'however', ipa:'/haʊˈɛv.ər/', pos:'conj', meaning:'然而', example:'It is raining; however, I want to go out.', exampleCn:'下雨了；然而，我想出去。' },
+    { rank:204, word:'area', ipa:'/ˈɛər.i.ə/', pos:'noun', meaning:'区域', example:'I live in a quiet area.', exampleCn:'我住在一个安静的区域。' },
+    { rank:205, word:'provide', ipa:'/prəˈvaɪd/', pos:'verb', meaning:'提供', example:'They provide food for us.', exampleCn:'他们为我们提供食物。' },
+    { rank:206, word:'name', ipa:'/neɪm/', pos:'noun', meaning:'名字', example:'What is your name?', exampleCn:'你叫什么名字？' },
+    { rank:207, word:'read', ipa:'/rid/', pos:'verb', meaning:'读', example:'I like to read books.', exampleCn:'我喜欢读书。' },
+    { rank:208, word:'friend', ipa:'/frɛnd/', pos:'noun', meaning:'朋友', example:'She is my best friend.', exampleCn:'她是我最好的朋友。' },
+    { rank:209, word:'month', ipa:'/mʌnθ/', pos:'noun', meaning:'月份', example:'July is my favorite month.', exampleCn:'七月是我最喜欢的月份。' },
+    { rank:210, word:'large', ipa:'/lɑrdʒ/', pos:'adj', meaning:'大的', example:'This is a large room.', exampleCn:'这是一个大房间。' },
+    { rank:211, word:'business', ipa:'/ˈbɪz.nɪs/', pos:'noun', meaning:'商业', example:'I work in business.', exampleCn:'我从事商业工作。' },
+    { rank:212, word:'without', ipa:'/wɪðˈaʊt/', pos:'prep', meaning:'没有', example:'I go to school without breakfast.', exampleCn:'我没吃早饭就去上学。' },
+    { rank:213, word:'information', ipa:'/ˌɪn.fərˈmeɪ.ʃən/', pos:'noun', meaning:'信息', example:'I need more information.', exampleCn:'我需要更多信息。' },
+    { rank:214, word:'open', ipa:'/ˈoʊ.pən/', pos:'adj', meaning:'打开的', example:'The door is open.', exampleCn:'门是开着的。' },
+    { rank:215, word:'order', ipa:'/ˈɔr.dər/', pos:'verb', meaning:'订购', example:'I want to order a pizza.', exampleCn:'我想点一份披萨。' },
+    { rank:216, word:'government', ipa:'/ˈgʌv.ərn.mənt/', pos:'noun', meaning:'政府', example:'The government helps people.', exampleCn:'政府帮助人民。' },
+    { rank:217, word:'word', ipa:'/wɜrd/', pos:'noun', meaning:'单词', example:'I don\'t know this word.', exampleCn:'我不认识这个单词。' },
+    { rank:218, word:'issue', ipa:'/ˈɪʃ.u/', pos:'noun', meaning:'议题', example:'We discuss the issue.', exampleCn:'我们讨论这个议题。' },
+    { rank:219, word:'market', ipa:'/ˈmɑr.kɪt/', pos:'noun', meaning:'市场', example:'I buy fruit at the market.', exampleCn:'我在市场买水果。' },
+    { rank:220, word:'pay', ipa:'/peɪ/', pos:'verb', meaning:'支付', example:'I pay for the meal.', exampleCn:'我支付餐费。' },
+    { rank:221, word:'build', ipa:'/bɪld/', pos:'verb', meaning:'建造', example:'They build a new house.', exampleCn:'他们建造一所新房子。' },
+    { rank:222, word:'hold', ipa:'/hoʊld/', pos:'verb', meaning:'握住', example:'I hold my bag tightly.', exampleCn:'我紧紧握住我的包。' },
+    { rank:223, word:'service', ipa:'/ˈsɜr.vɪs/', pos:'verb', meaning:'保养', example:'They service the car.', exampleCn:'他们保养汽车。' },
+    { rank:224, word:'against', ipa:'/əˈgɛnst/', pos:'prep', meaning:'反对', example:'I am against this plan.', exampleCn:'我反对这个计划。' },
+    { rank:225, word:'believe', ipa:'/bɪˈliv/', pos:'verb', meaning:'相信', example:'I believe in you.', exampleCn:'我相信你。' },
+    { rank:226, word:'second', ipa:'/ˈsɛk.ənd/', pos:'adj', meaning:'第二', example:'He is the second child.', exampleCn:'他是第二个孩子。' },
+    { rank:227, word:'though', ipa:'/ðoʊ/', pos:'adv', meaning:'虽然', example:'It is cold, though it is sunny.', exampleCn:'虽然阳光明媚，但很冷。' },
+    { rank:228, word:'yes', ipa:'/jɛs/', pos:'intj', meaning:'是', example:'Yes, I will come.', exampleCn:'是的，我会来的。' },
+    { rank:229, word:'love', ipa:'/lʌv/', pos:'verb', meaning:'爱', example:'I love my family.', exampleCn:'我爱我的家人。' },
+    { rank:230, word:'increase', ipa:'/ɪnˈkris/', pos:'verb', meaning:'增加', example:'The price increases every year.', exampleCn:'价格每年都在上涨。' },
+    { rank:231, word:'job', ipa:'/dʒɑb/', pos:'noun', meaning:'工作', example:'I have a good job.', exampleCn:'我有一份好工作。' },
+    { rank:232, word:'plan', ipa:'/plæn/', pos:'verb', meaning:'计划', example:'I plan to go on a trip.', exampleCn:'我计划去旅行。' },
+    { rank:233, word:'result', ipa:'/rɪˈzʌlt/', pos:'verb', meaning:'导致', example:'Hard work results in success.', exampleCn:'努力工作导致成功。' },
+    { rank:234, word:'away', ipa:'/əˈweɪ/', pos:'adv', meaning:'离开', example:'I am away from home.', exampleCn:'我离开了家。' },
+    { rank:235, word:'example', ipa:'/ɪɡˈzæm.pəl/', pos:'noun', meaning:'例子', example:'Let me give you an example.', exampleCn:'让我给你举个例子。' },
+    { rank:236, word:'happen', ipa:'/ˈhæp.ən/', pos:'verb', meaning:'发生', example:'What happened?', exampleCn:'发生了什么？' },
+    { rank:237, word:'offer', ipa:'/ˈɑ.fər/', pos:'verb', meaning:'提供', example:'They offer free coffee.', exampleCn:'他们提供免费咖啡。' },
+    { rank:238, word:'young', ipa:'/jʌŋ/', pos:'adj', meaning:'年轻的', example:'She is very young.', exampleCn:'她很年轻。' },
+    { rank:239, word:'close', ipa:'/kloʊz/', pos:'adv', meaning:'接近', example:'I sit close to the window.', exampleCn:'我坐在窗户旁边。' },
+    { rank:240, word:'program', ipa:'/ˈproʊ.græm/', pos:'noun', meaning:'项目', example:'We have a new program.', exampleCn:'我们有一个新项目。' },
+    { rank:241, word:'lead', ipa:'/lid/', pos:'verb', meaning:'领导', example:'She leads the team.', exampleCn:'她领导这个团队。' },
+    { rank:242, word:'buy', ipa:'/baɪ/', pos:'verb', meaning:'买', example:'I want to buy a car.', exampleCn:'我想买一辆车。' },
+    { rank:243, word:'understand', ipa:'/ˌʌn.dərˈstænd/', pos:'verb', meaning:'理解', example:'I understand the problem.', exampleCn:'我理解这个问题。' },
+    { rank:244, word:'thank', ipa:'/θæŋk/', pos:'verb', meaning:'感谢', example:'Thank you for your help.', exampleCn:'感谢你的帮助。' },
+    { rank:245, word:'far', ipa:'/fɑr/', pos:'adj', meaning:'远的', example:'The school is far from here.', exampleCn:'学校离这里很远。' },
+    { rank:246, word:'today', ipa:'/təˈdeɪ/', pos:'adv', meaning:'今天', example:'Today is a nice day.', exampleCn:'今天是个好天气。' },
+    { rank:247, word:'hour', ipa:'/ˈaʊ.ər/', pos:'noun', meaning:'小时', example:'I wait for an hour.', exampleCn:'我等了一个小时。' },
+    { rank:248, word:'student', ipa:'/ˈstu.dənt/', pos:'noun', meaning:'学生', example:'I am a student.', exampleCn:'我是一名学生。' },
+    { rank:249, word:'face', ipa:'/feɪs/', pos:'noun', meaning:'脸', example:'She has a beautiful face.', exampleCn:'她有一张美丽的脸。' },
+    { rank:250, word:'hope', ipa:'/hoʊp/', pos:'noun', meaning:'希望', example:'I have hope for the future.', exampleCn:'我对未来抱有希望。' },
+    { rank:251, word:'idea', ipa:'/aɪˈdi.ə/', pos:'noun', meaning:'想法', example:'That is a good idea.', exampleCn:'那是个好主意。' },
+    { rank:252, word:'cost', ipa:'/kɔst/', pos:'noun', meaning:'成本', example:'The cost is high.', exampleCn:'成本很高。' },
+    { rank:253, word:'less', ipa:'/lɛs/', pos:'adj', meaning:'更少的', example:'I have less time now.', exampleCn:'我现在的时间更少了。' },
+    { rank:254, word:'room', ipa:'/rum/', pos:'noun', meaning:'房间', example:'This room is big.', exampleCn:'这个房间很大。' },
+    { rank:255, word:'until', ipa:'/ʌnˈtɪl/', pos:'conj', meaning:'直到', example:'I wait until 5 PM.', exampleCn:'我一直等到下午5点。' },
+    { rank:256, word:'reason', ipa:'/ˈri.zən/', pos:'noun', meaning:'理由', example:'I have a reason for this.', exampleCn:'我有这个的理由。' },
+    { rank:257, word:'form', ipa:'/fɔrm/', pos:'noun', meaning:'形式', example:'This is a new form of art.', exampleCn:'这是一种新的艺术形式。' },
+    { rank:258, word:'spend', ipa:'/spɛnd/', pos:'verb', meaning:'花费', example:'I spend my weekends at home.', exampleCn:'我在家度过周末。' },
+    { rank:259, word:'head', ipa:'/hɛd/', pos:'noun', meaning:'头', example:'I have a pain in my head.', exampleCn:'我头痛。' },
+    { rank:260, word:'car', ipa:'/kɑr/', pos:'noun', meaning:'汽车', example:'She drives a red car.', exampleCn:'她开一辆红色的汽车。' },
+    { rank:261, word:'learn', ipa:'/lɜrn/', pos:'verb', meaning:'学习', example:'I want to learn English.', exampleCn:'我想学习英语。' },
+    { rank:262, word:'level', ipa:'/ˈlɛv.əl/', pos:'verb', meaning:'使平坦', example:'We level the ground for the building.', exampleCn:'我们为建筑平整土地。' },
+    { rank:263, word:'person', ipa:'/ˈpɜr.sən/', pos:'noun', meaning:'人', example:'She is a nice person.', exampleCn:'她是一个好人。' },
+    { rank:264, word:'experience', ipa:'/ɪkˈspɪər.i.əns/', pos:'noun', meaning:'经验', example:'I have experience in teaching.', exampleCn:'我有教学经验。' },
+    { rank:265, word:'once', ipa:'/wʌns/', pos:'adv', meaning:'一次', example:'I go to the gym once a week.', exampleCn:'我一周去一次健身房。' },
+    { rank:266, word:'member', ipa:'/ˈmɛm.bər/', pos:'noun', meaning:'成员', example:'She is a member of the club.', exampleCn:'她是俱乐部的成员。' },
+    { rank:267, word:'enough', ipa:'/ɪˈnʌf/', pos:'adj', meaning:'足够的', example:'I have enough money.', exampleCn:'我有足够的钱。' },
+    { rank:268, word:'bad', ipa:'/bæd/', pos:'adj', meaning:'坏的', example:'The weather is bad.', exampleCn:'天气很坏。' },
+    { rank:269, word:'city', ipa:'/ˈsɪt.i/', pos:'noun', meaning:'城市', example:'I live in a big city.', exampleCn:'我住在一个大城市里。' },
+    { rank:270, word:'night', ipa:'/naɪt/', pos:'noun', meaning:'夜晚', example:'I sleep at night.', exampleCn:'我晚上睡觉。' },
+    { rank:271, word:'able', ipa:'/ˈeɪ.bəl/', pos:'adj', meaning:'有能力的', example:'I am able to swim.', exampleCn:'我会游泳。' },
+    { rank:272, word:'support', ipa:'/səˈpɔrt/', pos:'verb', meaning:'支持', example:'I support your decision.', exampleCn:'我支持你的决定。' },
+    { rank:273, word:'whether', ipa:'/ˈwɛð.ər/', pos:'conj', meaning:'是否', example:'I don\'t know whether he will come.', exampleCn:'我不知道他是否会来。' },
+    { rank:274, word:'line', ipa:'/laɪn/', pos:'noun', meaning:'线', example:'Draw a straight line.', exampleCn:'画一条直线。' },
+    { rank:275, word:'present', ipa:'/ˈprɛz.ənt/', pos:'noun', meaning:'礼物', example:'I buy a present for her.', exampleCn:'我给她买了一份礼物。' },
+    { rank:276, word:'side', ipa:'/saɪd/', pos:'noun', meaning:'边', example:'I sit on the left side.', exampleCn:'我坐在左边。' },
+    { rank:277, word:'quite', ipa:'/kwaɪt/', pos:'adv', meaning:'相当', example:'I am quite tired.', exampleCn:'我相当累。' },
+    { rank:278, word:'although', ipa:'/ɔlˈðoʊ/', pos:'conj', meaning:'尽管', example:'Although it was late, we continued.', exampleCn:'尽管很晚了，我们还是继续。' },
+    { rank:279, word:'sure', ipa:'/ʃʊə/', pos:'adj', meaning:'确信的', example:'I am sure about this.', exampleCn:'我对此确信无疑。' },
+    { rank:280, word:'term', ipa:'/tɜrm/', pos:'noun', meaning:'学期', example:'The term starts in September.', exampleCn:'学期从九月开始。' },
+    { rank:281, word:'least', ipa:'/list/', pos:'adv', meaning:'最少', example:'I need at least 5 dollars.', exampleCn:'我至少需要5美元。' },
+    { rank:282, word:'age', ipa:'/eɪdʒ/', pos:'noun', meaning:'年龄', example:'What is your age?', exampleCn:'你的年龄是多少？' },
+    { rank:283, word:'low', ipa:'/loʊ/', pos:'adj', meaning:'低的', example:'The price is very low.', exampleCn:'价格很低。' },
+    { rank:284, word:'speak', ipa:'/spik/', pos:'verb', meaning:'说话', example:'I speak English well.', exampleCn:'我英语说得好。' },
+    { rank:285, word:'within', ipa:'/wɪðˈɪn/', pos:'adv', meaning:'在…内', example:'You must finish it within an hour.', exampleCn:'你必须在一小时内完成它。' },
+    { rank:286, word:'process', ipa:'/ˈprɑs.ɛs/', pos:'verb', meaning:'处理', example:'We need to process the data.', exampleCn:'我们需要处理这些数据。' },
+    { rank:287, word:'public', ipa:'/ˈpʌb.lɪk/', pos:'adj', meaning:'公共的', example:'I take the public bus.', exampleCn:'我乘坐公共汽车。' },
+    { rank:288, word:'often', ipa:'/ˈɑf.(t)ən/', pos:'adv', meaning:'经常', example:'I often go for a walk.', exampleCn:'我经常去散步。' },
+    { rank:289, word:'train', ipa:'/treɪn/', pos:'noun', meaning:'火车', example:'I take the train to work.', exampleCn:'我乘火车去上班。' },
+    { rank:290, word:'possible', ipa:'/ˈpɑs.ə.bəl/', pos:'adj', meaning:'可能的', example:'It is possible to win.', exampleCn:'有可能获胜。' },
+    { rank:291, word:'actually', ipa:'/ˈæk.tʃu.ə.li/', pos:'adv', meaning:'实际上', example:'Actually, I am very busy.', exampleCn:'实际上，我很忙。' },
+    { rank:292, word:'rather', ipa:'/ˈræð.ər/', pos:'adv', meaning:'相当', example:'It was rather cold yesterday.', exampleCn:'昨天相当冷。' },
+    { rank:293, word:'view', ipa:'/vju/', pos:'noun', meaning:'视野', example:'I have a nice view from my window.', exampleCn:'从我的窗户能看到美丽的景色。' },
+    { rank:294, word:'together', ipa:'/təˈgɛð.ər/', pos:'adv', meaning:'一起', example:'We go together to the park.', exampleCn:'我们一起去公园。' },
+    { rank:295, word:'consider', ipa:'/kənˈsɪd.ər/', pos:'verb', meaning:'考虑', example:'I consider your suggestion carefully.', exampleCn:'我仔细考虑你的建议。' },
+    { rank:296, word:'price', ipa:'/praɪs/', pos:'verb', meaning:'定价', example:'We price the product at $10.', exampleCn:'我们将产品定价为10美元。' },
+    { rank:297, word:'parent', ipa:'/ˈpɛər.ənt/', pos:'noun', meaning:'父母', example:'My parents live in London.', exampleCn:'我的父母住在伦敦。' },
+    { rank:298, word:'hard', ipa:'/hɑrd/', pos:'adj', meaning:'硬的', example:'The rock is very hard.', exampleCn:'这块岩石很硬。' },
+    { rank:299, word:'party', ipa:'/ˈpɑr.ti/', pos:'noun', meaning:'聚会', example:'I have a birthday party.', exampleCn:'我有一个生日聚会。' },
+    { rank:300, word:'local', ipa:'/ˈloʊ.kəl/', pos:'adj', meaning:'当地的', example:'I visit the local market.', exampleCn:'我参观当地市场。' },
+    { rank:301, word:'control', ipa:'/kənˈtroʊl/', pos:'verb', meaning:'控制', example:'I control the car carefully.', exampleCn:'我小心地控制汽车。' },
+    { rank:302, word:'already', ipa:'/ɔlˈrɛd.i/', pos:'adv', meaning:'已经', example:'I have already eaten lunch.', exampleCn:'我已经吃过午饭了。' },
+    { rank:303, word:'concern', ipa:'/kənˈsɜrn/', pos:'noun', meaning:'担忧', example:'I have a concern about this issue.', exampleCn:'我对这个问题感到担忧。' },
+    { rank:304, word:'product', ipa:'/ˈprɑd.əkt/', pos:'noun', meaning:'产品', example:'I buy a new product in the store.', exampleCn:'我在商店买了一个新产品。' },
+    { rank:305, word:'lose', ipa:'/luz/', pos:'verb', meaning:'丢失', example:'I often lose my keys.', exampleCn:'我经常丢钥匙。' },
+    { rank:306, word:'story', ipa:'/ˈstɔr.i/', pos:'noun', meaning:'故事', example:'I like to read a story before bed.', exampleCn:'我喜欢睡前读故事。' },
+    { rank:307, word:'almost', ipa:'/ˈɑl.məʊst/', pos:'adv', meaning:'几乎', example:'I am almost home.', exampleCn:'我几乎到家了。' },
+    { rank:308, word:'continue', ipa:'/kənˈtɪn.ju/', pos:'verb', meaning:'继续', example:'I continue my work.', exampleCn:'我继续我的工作。' },
+    { rank:309, word:'stand', ipa:'/stænd/', pos:'verb', meaning:'站立', example:'I stand by the door.', exampleCn:'我站在门边。' },
+    { rank:310, word:'whole', ipa:'/hoʊl/', pos:'adj', meaning:'全部的', example:'I ate the whole pizza.', exampleCn:'我吃了整个披萨。' },
+    { rank:311, word:'yet', ipa:'/jɛt/', pos:'adv', meaning:'还', example:'I have not finished yet.', exampleCn:'我还没完成。' },
+    { rank:312, word:'rate', ipa:'/reɪt/', pos:'noun', meaning:'速度', example:'The rate of growth is fast.', exampleCn:'增长速度很快。' },
+    { rank:313, word:'care', ipa:'/kɛər/', pos:'verb', meaning:'关心', example:'I care about my health.', exampleCn:'我关心我的健康。' },
+    { rank:314, word:'expect', ipa:'/ɪkˈspɛkt/', pos:'verb', meaning:'期望', example:'I expect you to come.', exampleCn:'我期望你来。' },
+    { rank:315, word:'effect', ipa:'/ɪˈfɛkt/', pos:'noun', meaning:'效果', example:'The medicine has a good effect.', exampleCn:'这药有很好的效果。' },
+    { rank:316, word:'sort', ipa:'/sɔrt/', pos:'noun', meaning:'种类', example:'What sort of music do you like?', exampleCn:'你喜欢哪种音乐？' },
+    { rank:317, word:'ever', ipa:'/ˈɛv.ər/', pos:'adv', meaning:'曾经', example:'Have you ever been to Japan?', exampleCn:'你曾经去过日本吗？' },
+    { rank:318, word:'anything', ipa:'/ˈɛn.iˌθɪŋ/', pos:'noun', meaning:'任何东西', example:'I don\'t want anything.', exampleCn:'我什么都不想要。' },
+    { rank:319, word:'cause', ipa:'/kɔz/', pos:'verb', meaning:'引起', example:'Smoking causes health problems.', exampleCn:'吸烟引起健康问题。' },
+    { rank:320, word:'fall', ipa:'/fɔl/', pos:'noun', meaning:'跌倒', example:'I had a fall and hurt my knee.', exampleCn:'我摔了一跤，伤了膝盖。' },
+    { rank:321, word:'deal', ipa:'/dil/', pos:'verb', meaning:'分发', example:'I deal the cards to the players.', exampleCn:'我给玩家分发牌。' },
+    { rank:322, word:'water', ipa:'/ˈwɔ.tər/', pos:'noun', meaning:'水', example:'I drink a glass of water.', exampleCn:'我喝一杯水。' },
+    { rank:323, word:'send', ipa:'/sɛnd/', pos:'verb', meaning:'发送', example:'I send a letter to my friend.', exampleCn:'我给朋友寄了一封信。' },
+    { rank:324, word:'allow', ipa:'/əˈlaʊ/', pos:'verb', meaning:'允许', example:'They allow me to enter.', exampleCn:'他们允许我进入。' },
+    { rank:325, word:'soon', ipa:'/sun/', pos:'adv', meaning:'很快', example:'I will see you soon.', exampleCn:'我很快会见到你。' },
+    { rank:326, word:'watch', ipa:'/wɑtʃ/', pos:'verb', meaning:'观看', example:'I watch TV every evening.', exampleCn:'我每晚看电视。' },
+    { rank:327, word:'base', ipa:'/beɪs/', pos:'noun', meaning:'基础', example:'The base of the building is strong.', exampleCn:'建筑的基础很牢固。' },
+    { rank:328, word:'probably', ipa:'/ˈprɑb.ə.bli/', pos:'adv', meaning:'大概', example:'I will probably go to the party.', exampleCn:'我大概会去参加聚会。' },
+    { rank:329, word:'suggest', ipa:'/səgˈdʒɛst/', pos:'verb', meaning:'建议', example:'I suggest we go home.', exampleCn:'我建议我们回家。' },
+    { rank:330, word:'past', ipa:'/pæst/', pos:'noun', meaning:'过去', example:'In the past, I lived in London.', exampleCn:'过去，我住在伦敦。' },
+    { rank:331, word:'power', ipa:'/ˈpaʊ.ər/', pos:'noun', meaning:'权力', example:'The power of the government is big.', exampleCn:'政府的权力很大。' },
+    { rank:332, word:'test', ipa:'/tɛst/', pos:'noun', meaning:'测试', example:'I have a math test tomorrow.', exampleCn:'我明天有数学测试。' },
+    { rank:333, word:'visit', ipa:'/ˈvɪz.ɪt/', pos:'verb', meaning:'参观', example:'I visit my grandparents every weekend.', exampleCn:'我每周末去看望祖父母。' },
+    { rank:334, word:'center', ipa:'/ˈsɛn.tər/', pos:'noun', meaning:'中心', example:'The shop is in the center of the city.', exampleCn:'商店在市中心。' },
+    { rank:335, word:'grow', ipa:'/groʊ/', pos:'verb', meaning:'成长', example:'I grow flowers in my garden.', exampleCn:'我在花园里种花。' },
+    { rank:336, word:'nothing', ipa:'/ˈnʌθ.ɪŋ/', pos:'pron', meaning:'没有什么', example:'I have nothing to say.', exampleCn:'我没什么可说的。' },
+    { rank:337, word:'return', ipa:'/rɪˈtɜrn/', pos:'verb', meaning:'返回', example:'I return home at 6 PM.', exampleCn:'我下午6点回家。' },
+    { rank:338, word:'mother', ipa:'/ˈmʌð.ər/', pos:'noun', meaning:'母亲', example:'My mother is a teacher.', exampleCn:'我的母亲是一名教师。' },
+    { rank:339, word:'walk', ipa:'/wɔk/', pos:'verb', meaning:'走', example:'I walk to school every day.', exampleCn:'我每天步行去学校。' },
+    { rank:340, word:'matter', ipa:'/ˈmæt.ər/', pos:'noun', meaning:'事情', example:'It is a matter of time.', exampleCn:'这是一个时间问题。' },
+    { rank:341, word:'mind', ipa:'/maɪnd/', pos:'noun', meaning:'头脑', example:'I have a busy mind.', exampleCn:'我的头脑很忙碌。' },
+    { rank:342, word:'value', ipa:'/ˈvæl.ju/', pos:'verb', meaning:'估价', example:'I value your opinion.', exampleCn:'我重视你的意见。' },
+    { rank:343, word:'office', ipa:'/ˈɑ.fɪs/', pos:'noun', meaning:'办公室', example:'I work in an office.', exampleCn:'我在办公室工作。' },
+    { rank:344, word:'record', ipa:'/ˈrɛk.ərd/', pos:'noun', meaning:'记录', example:'I keep a record of my sales.', exampleCn:'我记录我的销售数据。' },
+    { rank:345, word:'stay', ipa:'/steɪ/', pos:'verb', meaning:'停留', example:'I stay at home on weekends.', exampleCn:'我周末待在家里。' },
+    { rank:346, word:'force', ipa:'/fɔrs/', pos:'verb', meaning:'强迫', example:'I don\'t want to force you.', exampleCn:'我不想强迫你。' },
+    { rank:347, word:'stop', ipa:'/stɑp/', pos:'verb', meaning:'停止', example:'Please stop talking.', exampleCn:'请停止说话。' },
+    { rank:348, word:'several', ipa:'/ˈsɛv.ər.əl/', pos:'det', meaning:'几个', example:'I have several friends.', exampleCn:'我有几个朋友。' },
+    { rank:349, word:'light', ipa:'/laɪt/', pos:'adj', meaning:'轻的', example:'The bag is very light.', exampleCn:'这个包很轻。' },
+    { rank:350, word:'develop', ipa:'/dɪˈvɛl.əp/', pos:'verb', meaning:'发展', example:'The city develops quickly.', exampleCn:'这个城市发展很快。' },
+    { rank:351, word:'remember', ipa:'/rɪˈmɛm.bər/', pos:'verb', meaning:'记得', example:'I remember your name.', exampleCn:'我记得你的名字。' },
+    { rank:352, word:'bit', ipa:'/bɪt/', pos:'noun', meaning:'小块', example:'I have a bit of bread.', exampleCn:'我有一小块面包。' },
+    { rank:353, word:'share', ipa:'/ʃɛər/', pos:'noun', meaning:'份额', example:'I have a share in the company.', exampleCn:'我在公司里有一份股份。' },
+    { rank:354, word:'real', ipa:'/ril/', pos:'adj', meaning:'真实的', example:'Is this story real?', exampleCn:'这个故事是真的吗？' },
+    { rank:355, word:'answer', ipa:'/ˈæn.sər/', pos:'noun', meaning:'答案', example:'I know the answer.', exampleCn:'我知道答案。' },
+    { rank:356, word:'sit', ipa:'/sɪt/', pos:'verb', meaning:'坐', example:'Please sit down.', exampleCn:'请坐下。' },
+    { rank:357, word:'figure', ipa:'/ˈfɪɡ.jər/', pos:'verb', meaning:'理解', example:'I can\'t figure out the problem.', exampleCn:'我无法理解这个问题。' },
+    { rank:358, word:'letter', ipa:'/ˈlɛt.ər/', pos:'noun', meaning:'信', example:'I write a letter to my friend.', exampleCn:'我给我的朋友写了一封信。' },
+    { rank:359, word:'decide', ipa:'/dɪˈsaɪd/', pos:'verb', meaning:'决定', example:'I decide to go to the park.', exampleCn:'我决定去公园。' },
+    { rank:360, word:'language', ipa:'/ˈlæŋ.gwɪdʒ/', pos:'noun', meaning:'语言', example:'English is a difficult language.', exampleCn:'英语是一门难学的语言。' },
+    { rank:361, word:'subject', ipa:'/ˈsʌb.dʒɪkt/', pos:'noun', meaning:'主题', example:'The subject of the book is love.', exampleCn:'这本书的主题是爱。' },
+    { rank:362, word:'class', ipa:'/klæs/', pos:'noun', meaning:'等级', example:'He is in the first class.', exampleCn:'他是一等舱的。' },
+    { rank:363, word:'development', ipa:'/dɪˈvɛl.əp.mənt/', pos:'noun', meaning:'发展', example:'I study economic development.', exampleCn:'我研究经济发展。' },
+    { rank:364, word:'town', ipa:'/taʊn/', pos:'noun', meaning:'城镇', example:'I live in a small town.', exampleCn:'我住在一个小镇上。' },
+    { rank:365, word:'half', ipa:'/hæf/', pos:'noun', meaning:'一半', example:'I eat half of the apple.', exampleCn:'我吃了半个苹果。' },
+    { rank:366, word:'minute', ipa:'/ˈmɪn.ɪt/', pos:'noun', meaning:'分钟', example:'Wait a minute, please.', exampleCn:'请等一分钟。' },
+    { rank:367, word:'food', ipa:'/fud/', pos:'noun', meaning:'食物', example:'I like Chinese food.', exampleCn:'我喜欢中国食物。' },
+    { rank:368, word:'break', ipa:'/breɪk/', pos:'verb', meaning:'打破', example:'Don\'t break the glass.', exampleCn:'别打破玻璃。' },
+    { rank:369, word:'clear', ipa:'/klɪər/', pos:'adj', meaning:'清楚的', example:'The water is clear.', exampleCn:'水是清澈的。' },
+    { rank:370, word:'future', ipa:'/ˈfju.tʃər/', pos:'noun', meaning:'未来', example:'I think about the future.', exampleCn:'我考虑未来。' },
+    { rank:371, word:'either', ipa:'/ˈi.ðər/', pos:'adj', meaning:'两者之一', example:'You can have either tea or coffee.', exampleCn:'你可以喝茶或咖啡。' },
+    { rank:372, word:'ago', ipa:'/əˈgoʊ/', pos:'adv', meaning:'以前', example:'I saw it two days ago.', exampleCn:'我两天前见过它。' },
+    { rank:373, word:'per', ipa:'/pɜr/', pos:'prep', meaning:'每', example:'It costs $10 per person.', exampleCn:'每人10美元。' },
+    { rank:374, word:'remain', ipa:'/rɪˈmeɪn/', pos:'verb', meaning:'保持', example:'I remain at home.', exampleCn:'我待在家里。' },
+    { rank:375, word:'top', ipa:'/tɒp/', pos:'noun', meaning:'顶部', example:'I sit at the top of the stairs.', exampleCn:'我坐在楼梯顶部。' },
+    { rank:376, word:'among', ipa:'/əˈmʌŋ/', pos:'prep', meaning:'在…之间', example:'I am among friends.', exampleCn:'我在朋友中间。' },
+    { rank:377, word:'win', ipa:'/wɪn/', pos:'verb', meaning:'赢', example:'We win the game.', exampleCn:'我们赢了比赛。' },
+    { rank:378, word:'color', ipa:'/ˈkʌl.ər/', pos:'noun', meaning:'颜色', example:'My favorite color is blue.', exampleCn:'我最喜欢的颜色是蓝色。' },
+    { rank:379, word:'involve', ipa:'/ɪnˈvɑlv/', pos:'verb', meaning:'涉及', example:'The job involves a lot of travel.', exampleCn:'这份工作涉及大量旅行。' },
+    { rank:380, word:'reach', ipa:'/ritʃ/', pos:'verb', meaning:'到达', example:'I reach home at 5 PM.', exampleCn:'我下午5点到家。' },
+    { rank:381, word:'social', ipa:'/ˈsoʊ.ʃəl/', pos:'adj', meaning:'社会的', example:'We have a social problem.', exampleCn:'我们有一个社会问题。' },
+    { rank:382, word:'period', ipa:'/ˈpɪər.i.əd/', pos:'noun', meaning:'时期', example:'This period is very important.', exampleCn:'这个时期非常重要。' },
+    { rank:383, word:'across', ipa:'/əˈkrɑs/', pos:'adv', meaning:'穿过', example:'I walk across the street.', exampleCn:'我穿过街道。' },
+    { rank:384, word:'note', ipa:'/noʊt/', pos:'verb', meaning:'注意', example:'Please note the change in the plan.', exampleCn:'请注意计划中的变化。' },
+    { rank:385, word:'history', ipa:'/ˈhɪs.tə.ri/', pos:'noun', meaning:'历史', example:'I study Chinese history.', exampleCn:'我学习中国历史。' },
+    { rank:386, word:'create', ipa:'/kriˈeɪt/', pos:'verb', meaning:'创造', example:'I create a new program.', exampleCn:'我创建了一个新程序。' },
+    { rank:387, word:'drive', ipa:'/draɪv/', pos:'verb', meaning:'驾驶', example:'I drive to work every day.', exampleCn:'我每天开车去上班。' },
+    { rank:388, word:'along', ipa:'/əˈlɔŋ/', pos:'prep', meaning:'沿着', example:'I walk along the river.', exampleCn:'我沿着河边走。' },
+    { rank:389, word:'type', ipa:'/taɪp/', pos:'noun', meaning:'类型', example:'I like this type of music.', exampleCn:'我喜欢这种类型的音乐。' },
+    { rank:390, word:'sound', ipa:'/saʊnd/', pos:'noun', meaning:'声音', example:'I hear a loud sound.', exampleCn:'我听到一声巨响。' },
+    { rank:391, word:'eye', ipa:'/aɪ/', pos:'noun', meaning:'眼睛', example:'I close my eyes.', exampleCn:'我闭上眼睛。' },
+    { rank:392, word:'music', ipa:'/ˈmju.zɪk/', pos:'noun', meaning:'音乐', example:'I like listening to music.', exampleCn:'我喜欢听音乐。' },
+    { rank:393, word:'game', ipa:'/geɪm/', pos:'noun', meaning:'游戏', example:'I play a game with my friends.', exampleCn:'我和朋友们玩一个游戏。' },
+    { rank:394, word:'political', ipa:'/pəˈlɪt.ɪ.kəl/', pos:'adj', meaning:'政治的', example:'This is a political issue.', exampleCn:'这是一个政治问题。' },
+    { rank:395, word:'free', ipa:'/fri/', pos:'adj', meaning:'免费的', example:'The ticket is free.', exampleCn:'票是免费的。' },
+    { rank:396, word:'receive', ipa:'/rɪˈsiv/', pos:'verb', meaning:'收到', example:'I receive a gift from my friend.', exampleCn:'我收到了朋友的礼物。' },
+    { rank:397, word:'moment', ipa:'/ˈmoʊ.mənt/', pos:'noun', meaning:'片刻', example:'Wait a moment, please.', exampleCn:'请等一下。' },
+    { rank:398, word:'sale', ipa:'/seɪl/', pos:'noun', meaning:'销售', example:'The sale of the house is final.', exampleCn:'房子的销售已经定下来了。' },
+    { rank:399, word:'policy', ipa:'/ˈpɑl.ə.si/', pos:'noun', meaning:'政策', example:'The government has a new policy.', exampleCn:'政府有一项新政策。' },
+    { rank:400, word:'further', ipa:'/ˈfɜr.ðər/', pos:'adj', meaning:'进一步的', example:'I need further information.', exampleCn:'我需要进一步的信息。' }
+  ];
+
+  // ================================================================
+  // 状态管理 (单课模式，lesson固定为1)
+  const state = {
+    currentLesson: 1,
+    progress: {},
+    words: [],
+    cardIndex: 0,
+    currentPart: 2,
+    quizQuestions: [],
+    quizIndex: 0,
+    part2Done: false,
+    part3Done: false,
+    part4Done: false,
+  };
+
+  function getWordId(w) { return `rank_${w.rank}`; }
+
+  function initProgress() {
+    RAW_WORDS.forEach(w => {
+      const id = getWordId(w);
+      if (!state.progress[id]) {
+        state.progress[id] = { part1: false, part2: false, part3: false, part4: false };
+      }
+    });
+  }
+  initProgress();
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function getRandomMeanings(w, count) {
+    const others = RAW_WORDS.filter(x => x.rank !== w.rank);
+    const shuffled = shuffle(others);
+    return shuffled.slice(0, count).map(x => x.meaning);
+  }
+
+  function loadLesson() {
+    state.words = RAW_WORDS; // 全部词汇
+    state.cardIndex = 0;
+    state.currentPart = 2;
+    state.part2Done = false;
+    state.part3Done = false;
+    state.part4Done = false;
+    generateQuizQuestions();
+    renderAll();
+  }
+
+  function generateQuizQuestions() {
+    const words = state.words;
+    const part = state.currentPart;
+    let qs = [];
+    if (part === 2) {
+      qs = words.map(w => ({
+        type: 'choice',
+        word: w,
+        question: w.word + ' ' + w.ipa,
+        options: shuffle([w.meaning, ...getRandomMeanings(w, 3)]),
+        answer: w.meaning,
+      }));
+    } else if (part === 3) {
+      qs = words.map(w => ({
+        type: 'input',
+        word: w,
+        question: w.meaning + ' ' + w.ipa,
+        answer: w.word,
+      }));
+    } else if (part === 4) {
+      qs = words.map(w => ({
+        type: 'listen',
+        word: w,
+        question: '🔊 听音频，输入英文 (模拟男声) ' + w.ipa,
+        answer: w.word,
+      }));
+    }
+    // 过滤已完成的
+    if (part === 2) qs = qs.filter(q => !state.progress[getWordId(q.word)].part2);
+    else if (part === 3) qs = qs.filter(q => !state.progress[getWordId(q.word)].part3);
+    else if (part === 4) qs = qs.filter(q => !state.progress[getWordId(q.word)].part4);
+    state.quizQuestions = shuffle(qs);
+    state.quizIndex = 0;
+  }
+
+  function renderAll() {
+    renderCard();
+    renderQuiz();
+    renderProgress();
+    renderWordlist();
+    updateSelect();
+  }
+
+  function renderCard() {
+    const words = state.words;
+    if (!words.length) {
+      document.getElementById('cardWord').textContent = '无词汇';
+      document.getElementById('cardIndex').textContent = '0 / 0';
+      return;
+    }
+    const idx = state.cardIndex % words.length;
+    const w = words[idx];
+    document.getElementById('cardWord').textContent = w.word;
+    document.getElementById('cardIpa').textContent = w.ipa || '';
+    document.getElementById('cardPos').textContent = w.pos || '';
+    document.getElementById('cardMeaning').textContent = w.meaning || '';
+    // 合并例句和翻译
+    const exampleText = w.example ? `📌 ${w.example}` : '📌 例句暂无';
+    const exampleCnText = w.exampleCn ? `\n${w.exampleCn}` : '';
+    document.getElementById('cardExample').innerHTML = exampleText + '<br><span style="color:#475569;font-size:0.85rem;">' + exampleCnText + '</span>';
+    document.getElementById('cardExampleCn').textContent = ''; // 清空独立区域，已合并
+    document.getElementById('cardIndex').textContent = `${idx+1} / ${words.length}`;
+    document.getElementById('playWordAudio').onclick = () => speak(w.word);
+    document.getElementById('playExampleAudio').onclick = () => speak(w.example || w.word);
+  }
+
+  function speak(text) {
+    if (!window.speechSynthesis) return alert('浏览器不支持语音');
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-US';
+    utter.rate = 0.8;
+    const voices = window.speechSynthesis.getVoices();
+    const male = voices.find(v => /male|男人/i.test(v.name));
+    if (male) utter.voice = male;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utter);
+  }
+
+  function renderQuiz() {
+    const part = state.currentPart;
+    const label = document.getElementById('partLabel');
+    if (part === 2) label.textContent = '第二部分 · 选中文';
+    else if (part === 3) label.textContent = '第三部分 · 拼写英文';
+    else if (part === 4) label.textContent = '第四部分 · 听写';
+
+    const qs = state.quizQuestions;
+    const container = document.getElementById('quizContent');
+    if (!qs || qs.length === 0) {
+      if (part === 2) { state.part2Done = true; tryUnlockNext(); }
+      else if (part === 3) { state.part3Done = true; tryUnlockNext(); }
+      else if (part === 4) { state.part4Done = true; }
+      container.innerHTML = `<div style="padding:20px;text-align:center;background:#f0f9ff;border-radius:40px;">✅ 当前部分已完成！</div>`;
+      document.getElementById('lockInfo').textContent = '🎉 所有题目完成！';
+      return;
+    }
+    const q = qs[state.quizIndex];
+    if (!q) { container.innerHTML = '<div>加载题目失败</div>'; return; }
+
+    let html = '';
+    if (q.type === 'choice') {
+      html = `<div style="font-weight:500;font-size:1.1rem;">${q.question}</div>
+              <div style="margin:12px 0;">选择正确的中文释义</div>`;
+      q.options.forEach(opt => {
+        html += `<div class="quiz-option" data-answer="${q.answer}" data-value="${opt}">${opt}</div>`;
+      });
+      html += `<div id="choiceFeedback" class="quiz-feedback"></div>`;
+    } else if (q.type === 'input' || q.type === 'listen') {
+      const label = q.type === 'input' ? '输入英文单词' : '听音频，输入英文单词';
+      html = `<div style="font-weight:500;font-size:1.1rem;">${q.question}</div>
+              <div style="margin:8px 0;">${label}</div>
+              <input class="quiz-input" id="quizInput" placeholder="输入英文..." autofocus>
+              <button class="btn btn-primary" id="submitInput">提交</button>
+              <div id="inputFeedback" class="quiz-feedback"></div>`;
+    }
+    container.innerHTML = html;
+    // 绑定事件
+    if (q.type === 'choice') {
+      document.querySelectorAll('.quiz-option').forEach(el => {
+        el.addEventListener('click', function() {
+          const val = this.dataset.value;
+          const answer = this.dataset.answer;
+          const fb = document.getElementById('choiceFeedback');
+          if (val === answer) {
+            this.classList.add('correct');
+            fb.textContent = '✅ 正确！';
+            const wid = getWordId(q.word);
+            if (part === 2) state.progress[wid].part2 = true;
+            else if (part === 3) state.progress[wid].part3 = true;
+            else if (part === 4) state.progress[wid].part4 = true;
+            setTimeout(() => { nextQuiz(); }, 400);
+          } else {
+            this.classList.add('wrong');
+            fb.textContent = '❌ 错误，请重试';
+            setTimeout(() => { this.classList.remove('wrong'); }, 500);
+          }
+        });
+      });
+    } else {
+      const input = document.getElementById('quizInput');
+      if (input) setTimeout(() => input.focus(), 100);
+      const btn = document.getElementById('submitInput');
+      const fb = document.getElementById('inputFeedback');
+      function checkInput() {
+        const val = input.value.trim();
+        if (val.toLowerCase() === q.answer.toLowerCase()) {
+          fb.textContent = '✅ 正确！';
+          const wid = getWordId(q.word);
+          if (part === 2) state.progress[wid].part2 = true;
+          else if (part === 3) state.progress[wid].part3 = true;
+          else if (part === 4) state.progress[wid].part4 = true;
+          setTimeout(() => { nextQuiz(); }, 400);
+        } else {
+          fb.textContent = '❌ 错误，再试一次';
+          input.value = '';
+          input.focus();
+        }
+      }
+      btn.addEventListener('click', checkInput);
+      input.addEventListener('keypress', (e) => { if (e.key === 'Enter') checkInput(); });
+    }
+    document.getElementById('lockInfo').textContent = `🔒 完成所有 ${qs.length} 题后解锁下一部分`;
+  }
+
+  function nextQuiz() {
+    state.quizIndex++;
+    if (state.quizIndex >= state.quizQuestions.length) {
+      const part = state.currentPart;
+      if (part === 2) state.part2Done = true;
+      else if (part === 3) state.part3Done = true;
+      else if (part === 4) state.part4Done = true;
+      tryUnlockNext();
+    }
+    renderQuiz();
+    renderProgress();
+    renderWordlist();
+  }
+
+  function tryUnlockNext() {
+    const part = state.currentPart;
+    if (part === 2 && state.part2Done) {
+      state.currentPart = 3;
+      generateQuizQuestions();
+      renderQuiz();
+    } else if (part === 3 && state.part3Done) {
+      state.currentPart = 4;
+      generateQuizQuestions();
+      renderQuiz();
+    } else if (part === 4 && state.part4Done) {
+      // 全部完成
+    }
+    renderProgress();
+  }
+
+  function renderProgress() {
+    const words = state.words;
+    let review=0, learning=0, mastered=0;
+    words.forEach(w => {
+      const p = state.progress[getWordId(w)];
+      if (!p) return;
+      const c = [p.part1, p.part2, p.part3, p.part4].filter(Boolean).length;
+      if (c === 4) mastered++;
+      else if (c > 0) learning++;
+      else review++;
+    });
+    document.getElementById('reviewCount').textContent = review;
+    document.getElementById('learningCount').textContent = learning;
+    document.getElementById('masteredCount').textContent = mastered;
+    document.getElementById('wordCountDisplay').textContent = `共 ${words.length} 词`;
+  }
+
+  function renderWordlist() {
+    const tbody = document.getElementById('wordlistBody');
+    const words = state.words;
+    let html = '';
+    words.forEach(w => {
+      const p = state.progress[getWordId(w)];
+      const c = p ? [p.part1, p.part2, p.part3, p.part4].filter(Boolean).length : 0;
+      let statusText, statusClass;
+      if (c === 4) { statusText = '已掌握'; statusClass = 'status-mastered'; }
+      else if (c > 0) { statusText = '学习中'; statusClass = 'status-learning'; }
+      else { statusText = '待复习'; statusClass = 'status-review'; }
+      html += `<tr>
+        <td>${w.rank}</td>
+        <td><strong>${w.word}</strong></td>
+        <td>${w.ipa || ''}</td>
+        <td>${w.pos || ''}</td>
+        <td>${w.meaning || ''}</td>
+        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+      </tr>`;
+    });
+    tbody.innerHTML = html || '<tr><td colspan="6">暂无词汇</td></tr>';
+    document.getElementById('wordlistMeta').textContent = 'NGSL Level 1 · 按Rank排序';
+  }
+
+  function updateSelect() {
+    // 无课程选择，仅保留占位
+  }
+
+  // 事件绑定
+  document.getElementById('prevCardBtn').addEventListener('click', function() {
+    if (state.words.length) { state.cardIndex = (state.cardIndex - 1 + state.words.length) % state.words.length; renderCard(); }
+  });
+  document.getElementById('nextCardBtn').addEventListener('click', function() {
+    if (state.words.length) { state.cardIndex = (state.cardIndex + 1) % state.words.length; renderCard(); }
+  });
+
+  document.getElementById('shuffleBtn').addEventListener('click', function() {
+    state.words = shuffle(state.words);
+    state.cardIndex = 0;
+    renderAll();
+  });
+
+  document.getElementById('resetLessonBtn').addEventListener('click', function() {
+    state.words.forEach(w => {
+      const id = getWordId(w);
+      state.progress[id] = { part1: false, part2: false, part3: false, part4: false };
+    });
+    state.part2Done = false; state.part3Done = false; state.part4Done = false;
+    state.currentPart = 2;
+    generateQuizQuestions();
+    renderAll();
+  });
+
+  document.getElementById('resetAllBtn').addEventListener('click', function() {
+    RAW_WORDS.forEach(w => {
+      const id = getWordId(w);
+      state.progress[id] = { part1: false, part2: false, part3: false, part4: false };
+    });
+    state.part2Done = false; state.part3Done = false; state.part4Done = false;
+    state.currentPart = 2;
+    loadLesson();
+  });
+
+  document.getElementById('resetQuizBtn').addEventListener('click', function() {
+    generateQuizQuestions();
+    renderQuiz();
+  });
+
+  // 初始化语音
+  window.speechSynthesis.getVoices();
+
+  loadLesson();
+</script>
+</body>
+</html>
